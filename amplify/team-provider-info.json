@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-cafeteria-dev-202401-authRole",
+      "UnauthRoleArn": "arn:aws:iam::722839182833:role/amplify-cafeteria-dev-202401-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::722839182833:role/amplify-cafeteria-dev-202401-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-cafeteria-dev-202401-deployment",
+      "UnauthRoleName": "amplify-cafeteria-dev-202401-unauthRole",
+      "StackName": "amplify-cafeteria-dev-202401",
+      "StackId": "arn:aws:cloudformation:us-east-1:722839182833:stack/amplify-cafeteria-dev-202401/ee8b1210-a0ad-11eb-a4b9-0e29088293c9",
+      "AmplifyAppId": "d31gous0fep8vw"
+    },
+    "categories": {
+      "auth": {
+        "cafeteriada9b09e0": {}
+      }
+    }
+  }
+}
