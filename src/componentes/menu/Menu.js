@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import { Auth } from 'aws-amplify'
+import { Redirect } from 'react-router-dom';
 
 class Menu extends Component {
     state = {
-        username: ""
+        username: "",
+        redirect: false
     }
 
     componentDidMount = async () => {
@@ -13,10 +15,12 @@ class Menu extends Component {
     obterUsuario = async () => {
         const user = await Auth.currentUserInfo()
         this.setState({ username: user.username})
+        this.setState({ redirect: false })
     }
 
     signOut = async () => {
         try{
+            this.setState({ redirect: true })
             await Auth.signOut({ global: true })
         } catch (error) {
             console.log('Error al cerrar la sesion: ', error)
@@ -34,6 +38,9 @@ class Menu extends Component {
                         Cerrar Sesión
                     </button>
                 </div>
+                { this.state.redirect === true && (
+                    <Redirect push to='/' />
+                )}
             </div>
         )
     }
