@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
 import Layout from './Layout'
 
-class Principal extends Component {
+class Categorias extends Component{
     render(){
         return(
             <Layout>
                 <div>
-                    Principal
+                    Categorias
                 </div>
             </Layout>
         )
     }
 }
 
-export default Principal
+export default Categorias
