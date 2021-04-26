@@ -1,5 +1,38 @@
-type Todo @model {
-  id: ID!
-  name: String!
-  description: String
+type Categoria @model (timestamps:{createdAt: "creado", updatedAt: "modificado"})
+	@key(name:"hijos" fields:["categoriaPadreID"]){
+	id: ID!
+	titulo: String!
+	categoriaPadreID: ID
+	subCategorias: [Categoria] @connection(keyName: "hijos", fields: ["id"])
+	categoriaPadre: Categoria @connection(fields:["categoriaPadreID"])
+}
+
+type Caracteristica @model (timestamps:{createdAt: "creado", updatedAt: "modificado"})
+	@key(name:"hijos" fields:["caracteristicaPadreID"]){
+	id: ID!
+	titulo: String!
+	descripcion: String
+	caracteristicaPadreID: ID
+	subCaracteristicas: [Caracteristica] @connection(keyName:"hijos", fields:["id"])
+	caracteristicaPadre: Caracteristica @connection(fields:["caracteristicaPadreID"])
+	productos: [CaracteristicasProducto] @connection(keyName:"porCaracteristica", fields: ["id"])
+}
+
+type Producto @model (timestamps:{createdAt: "creado", updatedAt: "modificado"}){
+	id: ID!
+	titulo: String!
+	descripcion: String!
+	categoriaID: ID
+	categoria: Categoria! @connection(fields:["categoriaID"])
+	caracteristicas: [CaracteristicasProducto] @connection(keyName:"porProducto", fields:["id"])
+}
+
+type CaracteristicasProducto @model (timestamps:{createdAt: "creado", updatedAt: "modificado"})
+	@key(name:"porProducto" fields:["productoID"])
+	@key(name:"porCaracteristica" fields:["caracteristicaID"]){
+	id: ID!
+	caracteristicaID: ID!
+	productoID: ID!
+	caracteristica: Caracteristica! @connection(fields: ["caracteristicaID"])
+	producto: Producto! @connection(fields: ["productoID"])
 }
