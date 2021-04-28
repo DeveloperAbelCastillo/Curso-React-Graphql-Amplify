@@ -3,7 +3,7 @@ import { BrowserRouter, Route } from 'react-router-dom'
 import Principal from "./componentes/Principal"
 import Productos from './inicio/Productos'
 import Promociones from './inicio/Promociones'
-import Categorias from './componentes/Categorias'
+import Categorias from './componentes/categorias/Categorias'
 import Caracteristicas from './componentes/Caracteristicas'
 import Producto from './componentes/Productos'
 import Amplify from "aws-amplify";
