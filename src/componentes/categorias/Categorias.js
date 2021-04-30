@@ -3,6 +3,7 @@ import Layout from '../Layout'
 import { API, graphqlOperation } from 'aws-amplify'
 import { listCategorias } from '../../graphql/queries'
 import Agregar from './Agregar'
+import Arbol from './Arbol'
 
 class Categorias extends Component{
 
@@ -33,12 +34,16 @@ class Categorias extends Component{
     }
 
     render(){
+        const { categorias } = this.state
         return(
             <Layout>
                 <div className='justify-center text-xl'>
                     <div className='flex justify-end'>
                         <Agregar handleRecargar={this.handleRecargar} />
                     </div>
+                </div>
+                <div className='inline-block rounded-lg border shadow-2xl bg-gray-100'>
+                    <Arbol categorias={categorias} idActual={null} />
                 </div>
             </Layout>
         )
