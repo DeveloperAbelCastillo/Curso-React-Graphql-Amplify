@@ -26,7 +26,6 @@ class Categorias extends Component{
         } else {
             this.setState({ next: true })
         }
-        console.log(this.state.categorias)
     }
 
     handleRecargar = async () => {
@@ -43,7 +42,7 @@ class Categorias extends Component{
                     </div>
                 </div>
                 <div className='inline-block rounded-lg border shadow-2xl bg-gray-100'>
-                    <Arbol categorias={categorias} idActual={null} />
+                    <Arbol categorias={categorias} idActual={null} handleRecargar={this.handleRecargar} />
                 </div>
             </Layout>
         )
