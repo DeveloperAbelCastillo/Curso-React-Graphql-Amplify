@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Layout from '../Layout'
 import { API, graphqlOperation } from 'aws-amplify'
-import { listCategorias } from '../../graphql/queries'
+import { listCategorias } from '../../graphql/queries_'
 import Agregar from './Agregar'
 import Arbol from './Arbol'
 

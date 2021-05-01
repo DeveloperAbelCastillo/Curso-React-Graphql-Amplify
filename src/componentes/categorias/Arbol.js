@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Rama from './Arbol'
 import Editar from './Editar'
-import { FaTrash } from "react-icons/fa"
+import Eliminar from './Eliminar'
 
 class Arbol extends Component{
 
@@ -19,7 +19,9 @@ class Arbol extends Component{
                 <div key={categoria.id} className='pl-4'>
                     <div className='flex'>
                         <Editar categoria={categoria} categorias={categorias} handleRecargar={this.handleRecargar}/>
-                        <FaTrash className='mx-1 self-center text-red-600'/>
+                        { categoria.subCategorias.items.length === 0 && (
+                            <Eliminar id={categoria.id} handleRecargar={this.handleRecargar} />
+                        )}
                         {categoria.titulo}
                     </div>
                     <Rama categorias={categorias} idActual={categoria.id} handleRecargar={this.handleRecargar} />

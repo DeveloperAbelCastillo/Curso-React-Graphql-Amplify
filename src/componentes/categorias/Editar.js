@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { API, graphqlOperation } from 'aws-amplify'
-import { listCategorias } from '../../graphql/queries'
-import { createCategoria, updateCategoria } from '../../graphql/mutations'
+import { updateCategoria } from '../../graphql/mutations'
 import { FaEdit } from 'react-icons/fa'
 
 class Agregar extends Component {
