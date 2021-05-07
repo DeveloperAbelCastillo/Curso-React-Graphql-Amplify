@@ -4,7 +4,7 @@ import Principal from "./componentes/Principal"
 import Productos from './inicio/Productos'
 import Promociones from './inicio/Promociones'
 import Categorias from './componentes/categorias/Categorias'
-import Caracteristicas from './componentes/Caracteristicas'
+import Caracteristicas from './componentes/caracteristicas/Caracteristicas'
 import Producto from './componentes/Productos'
 import Amplify from "aws-amplify";
 import awsExports from "./aws-exports";

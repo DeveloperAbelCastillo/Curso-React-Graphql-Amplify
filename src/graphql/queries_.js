@@ -33,3 +33,45 @@ export const listCategorias = /* GraphQL */ `
     }
   }
 `;
+
+export const listCaracteristicas = /* GraphQL */ `
+  query ListCaracteristicas(
+    $filter: ModelCaracteristicaFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listCaracteristicas(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        titulo
+        descripcion
+        caracteristicaPadreID
+        subCaracteristicas {
+          items {
+            id
+            titulo
+            descripcion
+            caracteristicaPadreID
+            creado
+            modificado
+          }
+          nextToken
+        }
+        caracteristicaPadre {
+          id
+          titulo
+          descripcion
+          caracteristicaPadreID
+          creado
+          modificado
+        }
+        productos {
+          nextToken
+        }
+        creado
+        modificado
+      }
+      nextToken
+    }
+  }
+`;
