@@ -5,7 +5,7 @@ import Productos from './inicio/Productos'
 import Promociones from './inicio/Promociones'
 import Categorias from './componentes/categorias/Categorias'
 import Caracteristicas from './componentes/caracteristicas/Caracteristicas'
-import Producto from './componentes/Productos'
+import Producto from './componentes/productos/Productos'
 import Amplify from "aws-amplify";
 import awsExports from "./aws-exports";
 import { Component } from "react";
