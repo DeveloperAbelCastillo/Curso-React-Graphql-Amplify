@@ -20,7 +20,7 @@ class Caracteristicas extends Component{
     getCaracteristicas = async () => {
         const result = await API.graphql(graphqlOperation(listCaracteristicas))
         this.setState({ caracteristicas: result.data.listCaracteristicas.items })
-        this.setState({ netToken: result.data.listCaracteristicas.netToken })
+        this.setState({ nextToken: result.data.listCaracteristicas.nextToken })
         if(this.state.nextToken === null){
             this.setState({ next: false })
         } else {
