@@ -17,7 +17,7 @@ class Eliminar extends Component {
    render(){
       const id = this.props.id
       return(
-         <button className="text-red-500 hover:text-red-600 focus:outline-none m-1" onClick={ () => this.handleEliminar(id)}>
+         <button className="text-red-500 hover:text-red-600 focus:outline-none mr-1" onClick={ () => this.handleEliminar(id)}>
             <FaTrash />
          </button>
       );

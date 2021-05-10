@@ -46,7 +46,7 @@ class Layout extends Component {
                         <div className='sm:w-1/3 lg:w-1/4 p-2 bg-gray-200 text-blue-800 font-bold'>
                             <Menu />
                         </div>
-                        <div className='sm:w-2/3 lg:w-3/4 p-2'>
+                        <div className='sm:w-2/3 lg:w-3/4 p-2 overflow-y-auto max-h-screen'>
                             { this.props.children }
                         </div>
                     </div>
