@@ -72,7 +72,7 @@ class Agregar extends Component {
         return(
             <>
                 <div className='flex justify-center'>
-                    <button className="text-blue-700 hover:text-green-500 focus:outline-none ml-4" onClick={() => this.handleCargar(data)}>
+                    <button className="text-blue-700 hover:text-green-500 focus:outline-none mr-1" onClick={() => this.handleCargar(data)}>
                         <FaEdit />
                     </button>
                 </div> 

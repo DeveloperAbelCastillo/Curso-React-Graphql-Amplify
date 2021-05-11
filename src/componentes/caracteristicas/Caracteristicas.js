@@ -41,7 +41,7 @@ class Caracteristicas extends Component{
                         <Agregar caracteristicas={caracteristicas} handleRecargar={this.handleRecargar} />
                     </div>
                 </div>
-                <div className='inline-block rounded-lg border shadow-2xl bg-gray-100'>
+                <div className='py-4 pr-4 inline-block rounded-lg border shadow-2xl bg-gray-100'>
                     <Arbol caracteristicas={caracteristicas} idActual={null} handleRecargar={this.handleRecargar} />
                 </div>
             </Layout>

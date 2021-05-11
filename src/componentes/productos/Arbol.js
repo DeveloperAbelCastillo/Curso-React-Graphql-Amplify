@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Rama from './Arbol'
 import Editar from './Editar'
 import Eliminar from './Eliminar'
+import Caracteristicas from './Caracteristicas'
 
 class Arbol extends Component{
 
@@ -27,6 +28,7 @@ class Arbol extends Component{
                                 <div className='flex pl-4'>
                                     <Editar producto={producto} categorias={categorias} handleRecargar={this.handleRecargar}/>
                                     <Eliminar id={producto.id} handleRecargar={this.handleRecargar} />
+                                    <Caracteristicas producto={producto} />
                                     {producto.titulo}
                                 </div>
                             </div>
