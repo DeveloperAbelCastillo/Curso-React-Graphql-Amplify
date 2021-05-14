@@ -28,7 +28,7 @@ class Arbol extends Component{
                                 <div className='flex pl-4'>
                                     <Editar producto={producto} categorias={categorias} handleRecargar={this.handleRecargar}/>
                                     <Eliminar id={producto.id} handleRecargar={this.handleRecargar} />
-                                    <Caracteristicas producto={producto} />
+                                    <Caracteristicas producto={producto} handleRecargar={this.handleRecargar} />
                                     {producto.titulo}
                                 </div>
                             </div>

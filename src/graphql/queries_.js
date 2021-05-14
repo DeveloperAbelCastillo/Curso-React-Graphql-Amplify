@@ -34,6 +34,43 @@ export const listCategorias = /* GraphQL */ `
   }
 `;
 
+export const listProductos = /* GraphQL */ `
+  query ListProductos(
+    $filter: ModelProductoFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listProductos(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        titulo
+        descripcion
+        categoriaID
+        categoria {
+          id
+          titulo
+          categoriaPadreID
+          creado
+          modificado
+        }
+        caracteristicas {
+          items {
+            id
+            caracteristicaID
+            productoID
+            creado
+            modificado
+          }
+          nextToken
+        }
+        creado
+        modificado
+      }
+      nextToken
+    }
+  }
+`;
+
 export const listCaracteristicas = /* GraphQL */ `
   query ListCaracteristicas(
     $filter: ModelCaracteristicaFilterInput
@@ -68,6 +105,29 @@ export const listCaracteristicas = /* GraphQL */ `
         productos {
           nextToken
         }
+        creado
+        modificado
+      }
+      nextToken
+    }
+  }
+`;
+
+export const listCaracteristicasProductos = /* GraphQL */ `
+  query ListCaracteristicasProductos(
+    $filter: ModelCaracteristicasProductoFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listCaracteristicasProductos(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        caracteristicaID
+        productoID        
         creado
         modificado
       }

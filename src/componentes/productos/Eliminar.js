@@ -6,7 +6,6 @@ import { FaTrash } from 'react-icons/fa'
 class Eliminar extends Component {
 
     handleEliminar = async (id) => {
-       console.log(id)
         const input = {
             id: id
         }
