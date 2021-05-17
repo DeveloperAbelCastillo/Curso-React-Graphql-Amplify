@@ -9,10 +9,8 @@ class Agregar extends Component {
         caracteristica : {
             id : "",
             titulo : "",
-            descripcion : "",
-            caracteristicaPadreID : ""
-        },
-        caracteristicas : []
+            descripcion : ""
+        }
     }
 
     handleTitulo = async event => {
@@ -23,15 +21,8 @@ class Agregar extends Component {
         this.setState({ caracteristica: {...this.state.caracteristica, descripcion: event.target.value }})
     }
 
-    handleCaracteristicaPadreID = async event => {
-        this.setState({ caracteristica: {...this.state.caracteristica, caracteristicaPadreID: event.target.value }})
-    }
-
-    handleCargar = (data) => {
-        const caracteristica = data.caracteristica
-        const caracteristicas = data.caracteristicas
+    handleCargar = (caracteristica) => {
         this.setState({ caracteristica })
-        this.setState({ caracteristicas })
         this.handleModal()
     }
 
@@ -51,8 +42,7 @@ class Agregar extends Component {
             input = {
                 id: this.state.caracteristica.id,
                 titulo: this.state.caracteristica.titulo,
-                descripcion: this.state.caracteristica.descripcion,
-                caracteristicaPadreID: this.state.caracteristica.caracteristicaPadreID
+                descripcion: this.state.caracteristica.descripcion
             }
         }
 
@@ -60,15 +50,14 @@ class Agregar extends Component {
         this.setState({ caracteristica: {...this.state.caracteristica, id: ''}})
         this.setState({ caracteristica: {...this.state.caracteristica, titulo: ''}})
         this.setState({ caracteristica: {...this.state.caracteristica, descripcion: ''}})
-        this.setState({ caracteristica: {...this.state.caracteristica, caracteristicaPadreID: ''}})
 
         this.props.handleRecargar()
         this.handleModal()
     }
 
     render(){
-        const { caracteristica, caracteristicas } = this.state
-        const data = this.props
+        const { caracteristica } = this.state
+        const data = this.props.caracteristica
         return(
             <>
                 <div className='flex justify-center'>
@@ -85,10 +74,10 @@ class Agregar extends Component {
                             <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                                 {/*header*/}
                                 <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t">
-                                    <h3 className="text-3xl font-semibold">Editar Característica</h3>
+                                    <h3 className="self-center text-3xl font-semibold">Seleccionar Características</h3>
                                     <button className="p-1 ml-auto bg-transparent border-0 text-blackopacity-5 float-right text-3xl leading-nonefont-semibold outline-none focus:outline-none" 
                                         onClick={this.handleModal}>
-                                        <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">×</span>
+                                        <span className="bg-transparent text-black opacity-50 text-3xl block outline-none focus:outline-none">×</span>
                                     </button>
                                 </div>
                                 {/*body*/}
@@ -107,13 +96,6 @@ class Agregar extends Component {
                                             name="descripcion" 
                                             value={caracteristica.descripcion}
                                             onChange={this.handleDescripcion} />
-                                        <select className='bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal my-1'
-                                            value={caracteristica.caracteristicaPadreID} 
-                                            onChange={this.handleCaracteristicaPadreID}>
-                                            {caracteristicas.map(item =>
-                                                <option className='capitalize' key={item.id} value={item.id}>{item.titulo}</option>
-                                            )};
-                                        </select>
                                         </div>
                                     </div>
                                 </div>

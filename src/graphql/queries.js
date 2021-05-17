@@ -73,50 +73,7 @@ export const getCaracteristica = /* GraphQL */ `
       id
       titulo
       descripcion
-      caracteristicaPadreID
-      subCaracteristicas {
-        items {
-          id
-          titulo
-          descripcion
-          caracteristicaPadreID
-          creado
-          modificado
-        }
-        nextToken
-      }
-      caracteristicaPadre {
-        id
-        titulo
-        descripcion
-        caracteristicaPadreID
-        subCaracteristicas {
-          nextToken
-        }
-        caracteristicaPadre {
-          id
-          titulo
-          descripcion
-          caracteristicaPadreID
-          creado
-          modificado
-        }
-        productos {
-          nextToken
-        }
-        creado
-        modificado
-      }
-      productos {
-        items {
-          id
-          caracteristicaID
-          productoID
-          creado
-          modificado
-        }
-        nextToken
-      }
+      opciones
       creado
       modificado
     }
@@ -133,21 +90,7 @@ export const listCaracteristicas = /* GraphQL */ `
         id
         titulo
         descripcion
-        caracteristicaPadreID
-        subCaracteristicas {
-          nextToken
-        }
-        caracteristicaPadre {
-          id
-          titulo
-          descripcion
-          caracteristicaPadreID
-          creado
-          modificado
-        }
-        productos {
-          nextToken
-        }
+        opciones
         creado
         modificado
       }
@@ -233,21 +176,7 @@ export const getCaracteristicasProducto = /* GraphQL */ `
         id
         titulo
         descripcion
-        caracteristicaPadreID
-        subCaracteristicas {
-          nextToken
-        }
-        caracteristicaPadre {
-          id
-          titulo
-          descripcion
-          caracteristicaPadreID
-          creado
-          modificado
-        }
-        productos {
-          nextToken
-        }
+        opciones
         creado
         modificado
       }
@@ -293,7 +222,7 @@ export const listCaracteristicasProductos = /* GraphQL */ `
           id
           titulo
           descripcion
-          caracteristicaPadreID
+          opciones
           creado
           modificado
         }

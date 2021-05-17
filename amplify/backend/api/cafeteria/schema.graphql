@@ -7,15 +7,11 @@ type Categoria @model (timestamps:{createdAt: "creado", updatedAt: "modificado"}
 	categoriaPadre: Categoria @connection(fields:["categoriaPadreID"])
 }
 
-type Caracteristica @model (timestamps:{createdAt: "creado", updatedAt: "modificado"})
-	@key(name:"hijos" fields:["caracteristicaPadreID"]){
+type Caracteristica @model (timestamps:{createdAt: "creado", updatedAt: "modificado"}){
 	id: ID!
 	titulo: String!
 	descripcion: String
-	caracteristicaPadreID: ID
-	subCaracteristicas: [Caracteristica] @connection(keyName:"hijos", fields:["id"])
-	caracteristicaPadre: Caracteristica @connection(fields:["caracteristicaPadreID"])
-	productos: [CaracteristicasProducto] @connection(keyName:"porCaracteristica", fields: ["id"])
+	opciones: String
 }
 
 type Producto @model (timestamps:{createdAt: "creado", updatedAt: "modificado"}){

@@ -23,6 +23,7 @@ class Arbol extends Component{
                         {categoria.titulo}
                     </div>
                     { productos.filter(producto => producto.categoriaID === categoria.id).map((producto) => {
+                        console.log(producto.caracteristicas.items)
                         return(
                             <div key={producto.id}>
                                 <div className='flex pl-4'>
@@ -30,6 +31,11 @@ class Arbol extends Component{
                                     <Eliminar id={producto.id} handleRecargar={this.handleRecargar} />
                                     <Caracteristicas producto={producto} handleRecargar={this.handleRecargar} />
                                     {producto.titulo}
+                                </div>
+                                <div className='pl-8'>
+                                    { producto.caracteristicas.items.map(item => (
+                                        <div className='px-6'>{item.caracteristica.titulo}</div>
+                                    ))}
                                 </div>
                             </div>
                         )

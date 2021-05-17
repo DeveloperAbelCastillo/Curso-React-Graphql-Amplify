@@ -11,20 +11,18 @@ class Arbol extends Component{
 
     render(){
         const caracteristicas = this.props.caracteristicas
-        const idActual = this.props.idActual
-        const filtrados = caracteristicas.filter(caracteristica => caracteristica.caracteristicaPadreID === idActual)
-
-        return filtrados.map((caracteristica) => {
+        return caracteristicas.map((caracteristica) => {
             return(
                 <div key={caracteristica.id} className='pl-4'>
                     <div className='flex'>
-                        <Editar caracteristica={caracteristica} caracteristicas={caracteristicas} handleRecargar={this.handleRecargar}/>
-                        { caracteristica.subCaracteristicas.items.length === 0 && (
-                            <Eliminar id={caracteristica.id} handleRecargar={this.handleRecargar} />
-                        )}
+                        <Editar caracteristica={caracteristica} handleRecargar={this.handleRecargar}/>
+                        <Eliminar id={caracteristica.id} handleRecargar={this.handleRecargar} />
+                        {/* { caracteristica.subCaracteristicas.items.length === 0 && (
+                        )} */}
                         {caracteristica.titulo}
+                        {caracteristica.dscripcion}
                     </div>
-                    <Rama caracteristicas={caracteristicas} idActual={caracteristica.id} handleRecargar={this.handleRecargar} />
+                    {/* <Rama opciones={caracteristicas} idActual={caracteristica.id} handleRecargar={this.handleRecargar} /> */}
                 </div>
             )
         })

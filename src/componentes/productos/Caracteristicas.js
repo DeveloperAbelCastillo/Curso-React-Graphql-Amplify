@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { API, graphqlOperation } from 'aws-amplify'
-import { listCaracteristicas, listCaracteristicasProductos } from '../../graphql/queries_'
-import { createCaracteristicasProducto, updateCaracteristicasProducto } from '../../graphql/mutations'
+import { listCaracteristicas, listCaracteristicasProductos } from '../../graphql/queries'
+import { createCaracteristicasProducto } from '../../graphql/mutations'
 import { FaElementor } from 'react-icons/fa'
 
 class Caracteristicas extends Component{
@@ -9,39 +9,62 @@ class Caracteristicas extends Component{
     state = {
         verModal : false,
         producto : {},
-        caracteristicas : [],
+        caracteristicasProducto : [],
         caracteristicasDisponibles : [],
-        caracteristicasProductos : [],
-        nextToken : '',
-        next : false
+        idSeleccionado : ''
     }
-
-    getCaracteristicas = async () => {
-        const filter = { caracteristicaPadreID : { notContains: '' } }
-        const result = await API.graphql(graphqlOperation(listCaracteristicas, { filter } ))
-        this.setState({ caracteristicasDisponibles: result.data.listCaracteristicas.items })
-        this.setState({ nextToken: result.data.listCaracteristicas.nextToken })
-        if(this.state.nextToken === null){
-            this.setState({ next: false })
-        } else {
-            this.setState({ next: true})
-        }
-        const result2 = await API.graphql(graphqlOperation(listCaracteristicasProductos))
-        this.setState({ caracteristicasProductos: result2.data.listCaracteristicasProductos.items })
+    
+    getCaracteristicasDisponibles = async () => {        
+        const result = await API.graphql(graphqlOperation(listCaracteristicas))
+        await this.setState({ caracteristicasDisponibles: result.data.listCaracteristicas.items })
+    }    
+    
+    getCaracteristicasProducto = async () => {
+        const filter = { productoID : { eq: this.state.producto.id }}
+        const result = await API.graphql(graphqlOperation(listCaracteristicasProductos, { filter } ))
+        await this.setState({ caracteristicasProducto : result.data.listCaracteristicasProductos.items })
+        await this.state.caracteristicasProducto.forEach( item => {
+            this.filtrar(item.caracteristicaID)
+        })
     }
-
-    handleCargar = async data => {
-        const producto = this.props.producto
-        const caracteristicas = this.props.producto.caracteristicas.items
-        this.setState({ producto })
-        this.setState({ caracteristicas })
-        await this.getCaracteristicas()
-        //this.asignarCaracteristicas(caracteristicas)
+    
+    handleCargar = async producto => {
+        await this.setState({ producto })
+        await this.getCaracteristicasDisponibles()
+        await this.getCaracteristicasProducto()
         this.handleModal()
     }
-
+    
+    filtrar = async id => {
+        const caracteristicasDisponibles = this.state.caracteristicasDisponibles.filter(item => item.id !== id)
+        await this.setState({ caracteristicasDisponibles })
+    }
+    
     handleModal = async () => {
         this.setState({ verModal: !this.state.verModal })
+    }
+
+    handleCerrar = async () => {
+        this.props.handleRecargar()
+        this.handleModal()
+    }
+    
+    handleIdSeleccionado = async event => {
+        if(event.target.value !== ''){
+            this.setState({ idSeleccionado: event.target.value })
+        }
+    }
+
+    handleAgregar = async event => {
+        event.preventDefault()
+
+        var input = {
+            caracteristicaID: this.state.idSeleccionado,
+            productoID: this.state.producto.id
+        }        
+
+        API.graphql(graphqlOperation(createCaracteristicasProducto, { input }))
+        await this.filtrar(this.state.idSeleccionado)
     }
 
     // asignarCaracteristicas = async caracteristicas => {
@@ -51,55 +74,55 @@ class Caracteristicas extends Component{
     //     // caracteristicas.items.forEach()
     // }
 
-    handleCaracteristica = async event => {
-        const existe = this.state.caracteristicas.find(item => item.id === event.target.value)
-        if(existe === undefined){
-            const caracteristicaDisponible = this.state.caracteristicasDisponibles.find(item => item.id === event.target.value)
-            const caracteristica = {
-                caracteristicaID : caracteristicaDisponible.id,
-                productoID : this.state.producto.id
-            }
-            await this.setState({ caracteristicas: [...this.state.caracteristicas, caracteristica ] })
-        } else {
-            const caracteristicas = this.state.caracteristicas.filter(item => item.id !== event.target.value)            
-            await this.setState({ caracteristicas: caracteristicas })
-        }
-    }
+    // handleCaracteristica = async event => {
+    //     const existe = this.state.caracteristicas.find(item => item.id === event.target.value)
+    //     if(existe === undefined){
+    //         const caracteristicaDisponible = this.state.caracteristicasDisponibles.find(item => item.id === event.target.value)
+    //         const caracteristica = {
+    //             caracteristicaID : caracteristicaDisponible.id,
+    //             productoID : this.state.producto.id
+    //         }
+    //         await this.setState({ caracteristicas: [...this.state.caracteristicas, caracteristica ] })
+    //     } else {
+    //         const caracteristicas = this.state.caracteristicas.filter(item => item.id !== event.target.value)            
+    //         await this.setState({ caracteristicas: caracteristicas })
+    //     }
+    // }
 
-    handleGuardar = async event => {
-        event.preventDefault()
-        console.log(this.state.caracteristicas)
-        console.log(this.state.caracteristicasProductos)
-        this.state.caracteristicas.forEach(caracteristica => {
-            var input = {}
-            const actual = this.state.caracteristicasProductos.find(item => item.caracteristicaID === caracteristica.caracteristicaID)
+    // handleGuardar = async event => {
+    //     event.preventDefault()
+    //     console.log(this.state.caracteristicas)
+    //     console.log(this.state.caracteristicasProductos)
+    //     this.state.caracteristicas.forEach(caracteristica => {
+    //         var input = {}
+    //         const actual = this.state.caracteristicasProductos.find(item => item.caracteristicaID === caracteristica.caracteristicaID)
             
-            if(actual === undefined){
-                input = {
-                    caracteristicaID: caracteristica.caracteristicaID,
-                    productoID: caracteristica.productoID
-                }
-                console.log('Create:',input)
-                //API.graphql(graphqlOperation(createCaracteristicasProducto, { input }))
-            } else {
-                input = {
-                    id : actual.id,
-                    caracteristicaID: caracteristica.id,
-                    productoID: this.state.producto.id
-                }
-                console.log('Update:',input)
-                //API.graphql(graphqlOperation(updateCaracteristicasProducto, { input }))
-            }
+    //         if(actual === undefined){
+    //             input = {
+    //                 caracteristicaID: caracteristica.caracteristicaID,
+    //                 productoID: caracteristica.productoID
+    //             }
+    //             console.log('Create:',input)
+    //             //API.graphql(graphqlOperation(createCaracteristicasProducto, { input }))
+    //         } else {
+    //             input = {
+    //                 id : actual.id,
+    //                 caracteristicaID: caracteristica.id,
+    //                 productoID: this.state.producto.id
+    //             }
+    //             console.log('Update:',input)
+    //             //API.graphql(graphqlOperation(updateCaracteristicasProducto, { input }))
+    //         }
 
-        })
+    //     })
 
-        this.props.handleRecargar()
-        this.handleModal()
-    }
+    //     this.props.handleRecargar()
+    //     this.handleModal()
+    // }
 
     render(){
-        const { caracteristicasDisponibles } = this.state
-        const data = this.props
+        const { caracteristicasDisponibles, idSeleccionado } = this.state
+        const data = this.props.producto
         return(
             <>
                 <div className='flex justify-center'>
@@ -127,19 +150,31 @@ class Caracteristicas extends Component{
                                     <div className="relative p-6 flex-auto">
                                         <div className="my-4 text-gray-600 text-lg leading-relaxed">
                                             <div className='block'>
-                                                {caracteristicasDisponibles.map(item =>
-                                                        <div className='flex' key={item.id}>
-                                                            <input className='m-2 h-5 w-5 text-gray-600'
-                                                                type="checkbox" 
-                                                                defaultChecked={this.state.caracteristicas.id !== undefined ? true : false}
-                                                                name={item.titulo}
-                                                                value={item.id}
-                                                                onChange={this.handleCaracteristica} /> 
-                                                            <div className='self-center'>
-                                                                {item.titulo}
-                                                            </div>
+                                                <select className='bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal my-1'
+                                                    value={idSeleccionado} 
+                                                    onChange={this.handleIdSeleccionado}>
+                                                    <option value="">--SELECCIONE--</option>
+                                                    {caracteristicasDisponibles.map(item =>
+                                                        <option className='capitalize' key={item.id} value={item.id}>{item.titulo}</option>
+                                                    )};
+                                                </select>
+                                                <button className="bg-lime-200 text-blue-700 active:bg-lime-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg hover:bg-lime-400 outline-none focus:outline-none mr-1 mb-1" 
+                                                    type="button" 
+                                                    style={{ transition: "all .15s ease" }} 
+                                                    onClick={this.handleAgregar}>Agregar</button>
+                                                {/* {caracteristicasDisponibles.map(item =>
+                                                    <div className='flex' key={item.id}>
+                                                        <input className='m-2 h-5 w-5 text-gray-600'
+                                                            type="checkbox" 
+                                                            defaultChecked={this.state.caracteristicas.id !== undefined ? true : false}
+                                                            name={item.titulo}
+                                                            value={item.id}
+                                                            onChange={this.handleCaracteristica} /> 
+                                                        <div className='self-center'>
+                                                            {item.titulo}
                                                         </div>
-                                                )}
+                                                    </div>
+                                                )} */}
                                             </div>
                                         </div>
                                     </div>
@@ -148,11 +183,7 @@ class Caracteristicas extends Component{
                                         <button className="text-red-500 hover:bg-red-400 hover:text-white border border-red-400 rounded bg-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1" 
                                             type="button" 
                                             style={{ transition: "all .15s ease" }} 
-                                            onClick={this.handleModal}>Cancelar</button>
-                                        <button className="bg-lime-200 text-blue-700 active:bg-lime-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg hover:bg-lime-400 outline-none focus:outline-none mr-1 mb-1" 
-                                            type="button" 
-                                            style={{ transition: "all .15s ease" }} 
-                                            onClick={this.handleGuardar}>Guardar</button>
+                                            onClick={this.handleCerrar}>Cerrar</button>                                        
                                     </div>
                                 </div>
                             </div>

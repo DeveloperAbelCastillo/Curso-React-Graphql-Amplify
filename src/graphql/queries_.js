@@ -60,6 +60,10 @@ export const listProductos = /* GraphQL */ `
             productoID
             creado
             modificado
+            caracteristica {
+              titulo
+              id
+            }
           }
           nextToken
         }

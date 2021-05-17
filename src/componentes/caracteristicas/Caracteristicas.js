@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Layout from '../Layout'
 import { API, graphqlOperation } from 'aws-amplify'
-import { listCaracteristicas } from '../../graphql/queries_'
+import { listCaracteristicas } from '../../graphql/queries'
 import Agregar from './Agregar'
 import Arbol from './Arbol'
 
@@ -38,11 +38,11 @@ class Caracteristicas extends Component{
             <Layout>
                 <div className='justify-center text-xl'>
                     <div className='flex justify-end'>
-                        <Agregar caracteristicas={caracteristicas} handleRecargar={this.handleRecargar} />
+                        <Agregar handleRecargar={this.handleRecargar} />
                     </div>
                 </div>
                 <div className='py-4 pr-4 inline-block rounded-lg border shadow-2xl bg-gray-100'>
-                    <Arbol caracteristicas={caracteristicas} idActual={null} handleRecargar={this.handleRecargar} />
+                    <Arbol caracteristicas={caracteristicas} handleRecargar={this.handleRecargar} />
                 </div>
             </Layout>
         )

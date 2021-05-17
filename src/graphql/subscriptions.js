@@ -121,50 +121,7 @@ export const onCreateCaracteristica = /* GraphQL */ `
       id
       titulo
       descripcion
-      caracteristicaPadreID
-      subCaracteristicas {
-        items {
-          id
-          titulo
-          descripcion
-          caracteristicaPadreID
-          creado
-          modificado
-        }
-        nextToken
-      }
-      caracteristicaPadre {
-        id
-        titulo
-        descripcion
-        caracteristicaPadreID
-        subCaracteristicas {
-          nextToken
-        }
-        caracteristicaPadre {
-          id
-          titulo
-          descripcion
-          caracteristicaPadreID
-          creado
-          modificado
-        }
-        productos {
-          nextToken
-        }
-        creado
-        modificado
-      }
-      productos {
-        items {
-          id
-          caracteristicaID
-          productoID
-          creado
-          modificado
-        }
-        nextToken
-      }
+      opciones
       creado
       modificado
     }
@@ -176,50 +133,7 @@ export const onUpdateCaracteristica = /* GraphQL */ `
       id
       titulo
       descripcion
-      caracteristicaPadreID
-      subCaracteristicas {
-        items {
-          id
-          titulo
-          descripcion
-          caracteristicaPadreID
-          creado
-          modificado
-        }
-        nextToken
-      }
-      caracteristicaPadre {
-        id
-        titulo
-        descripcion
-        caracteristicaPadreID
-        subCaracteristicas {
-          nextToken
-        }
-        caracteristicaPadre {
-          id
-          titulo
-          descripcion
-          caracteristicaPadreID
-          creado
-          modificado
-        }
-        productos {
-          nextToken
-        }
-        creado
-        modificado
-      }
-      productos {
-        items {
-          id
-          caracteristicaID
-          productoID
-          creado
-          modificado
-        }
-        nextToken
-      }
+      opciones
       creado
       modificado
     }
@@ -231,50 +145,7 @@ export const onDeleteCaracteristica = /* GraphQL */ `
       id
       titulo
       descripcion
-      caracteristicaPadreID
-      subCaracteristicas {
-        items {
-          id
-          titulo
-          descripcion
-          caracteristicaPadreID
-          creado
-          modificado
-        }
-        nextToken
-      }
-      caracteristicaPadre {
-        id
-        titulo
-        descripcion
-        caracteristicaPadreID
-        subCaracteristicas {
-          nextToken
-        }
-        caracteristicaPadre {
-          id
-          titulo
-          descripcion
-          caracteristicaPadreID
-          creado
-          modificado
-        }
-        productos {
-          nextToken
-        }
-        creado
-        modificado
-      }
-      productos {
-        items {
-          id
-          caracteristicaID
-          productoID
-          creado
-          modificado
-        }
-        nextToken
-      }
+      opciones
       creado
       modificado
     }
@@ -407,21 +278,7 @@ export const onCreateCaracteristicasProducto = /* GraphQL */ `
         id
         titulo
         descripcion
-        caracteristicaPadreID
-        subCaracteristicas {
-          nextToken
-        }
-        caracteristicaPadre {
-          id
-          titulo
-          descripcion
-          caracteristicaPadreID
-          creado
-          modificado
-        }
-        productos {
-          nextToken
-        }
+        opciones
         creado
         modificado
       }
@@ -458,21 +315,7 @@ export const onUpdateCaracteristicasProducto = /* GraphQL */ `
         id
         titulo
         descripcion
-        caracteristicaPadreID
-        subCaracteristicas {
-          nextToken
-        }
-        caracteristicaPadre {
-          id
-          titulo
-          descripcion
-          caracteristicaPadreID
-          creado
-          modificado
-        }
-        productos {
-          nextToken
-        }
+        opciones
         creado
         modificado
       }
@@ -509,21 +352,7 @@ export const onDeleteCaracteristicasProducto = /* GraphQL */ `
         id
         titulo
         descripcion
-        caracteristicaPadreID
-        subCaracteristicas {
-          nextToken
-        }
-        caracteristicaPadre {
-          id
-          titulo
-          descripcion
-          caracteristicaPadreID
-          creado
-          modificado
-        }
-        productos {
-          nextToken
-        }
+        opciones
         creado
         modificado
       }
