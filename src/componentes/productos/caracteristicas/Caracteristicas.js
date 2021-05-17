@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { API, graphqlOperation } from 'aws-amplify'
-import { listCaracteristicas, listCaracteristicasProductos } from '../../graphql/queries'
-import { createCaracteristicasProducto } from '../../graphql/mutations'
+import { listCaracteristicas, listCaracteristicasProductos } from '../../../graphql/queries'
+import { createCaracteristicasProducto } from '../../../graphql/mutations'
 import { FaElementor } from 'react-icons/fa'
 
 class Caracteristicas extends Component{
@@ -58,67 +58,18 @@ class Caracteristicas extends Component{
     handleAgregar = async event => {
         event.preventDefault()
 
+        if(this.state.idSeleccionado === '')
+            return
+
         var input = {
             caracteristicaID: this.state.idSeleccionado,
             productoID: this.state.producto.id
         }        
 
         API.graphql(graphqlOperation(createCaracteristicasProducto, { input }))
+        this.setState({ idSeleccionado: '' })
         await this.filtrar(this.state.idSeleccionado)
     }
-
-    // asignarCaracteristicas = async caracteristicas => {
-    //     caracteristicas.forEach(item => {
-    //         console.log(item)
-    //     })
-    //     // caracteristicas.items.forEach()
-    // }
-
-    // handleCaracteristica = async event => {
-    //     const existe = this.state.caracteristicas.find(item => item.id === event.target.value)
-    //     if(existe === undefined){
-    //         const caracteristicaDisponible = this.state.caracteristicasDisponibles.find(item => item.id === event.target.value)
-    //         const caracteristica = {
-    //             caracteristicaID : caracteristicaDisponible.id,
-    //             productoID : this.state.producto.id
-    //         }
-    //         await this.setState({ caracteristicas: [...this.state.caracteristicas, caracteristica ] })
-    //     } else {
-    //         const caracteristicas = this.state.caracteristicas.filter(item => item.id !== event.target.value)            
-    //         await this.setState({ caracteristicas: caracteristicas })
-    //     }
-    // }
-
-    // handleGuardar = async event => {
-    //     event.preventDefault()
-    //     console.log(this.state.caracteristicas)
-    //     console.log(this.state.caracteristicasProductos)
-    //     this.state.caracteristicas.forEach(caracteristica => {
-    //         var input = {}
-    //         const actual = this.state.caracteristicasProductos.find(item => item.caracteristicaID === caracteristica.caracteristicaID)
-            
-    //         if(actual === undefined){
-    //             input = {
-    //                 caracteristicaID: caracteristica.caracteristicaID,
-    //                 productoID: caracteristica.productoID
-    //             }
-    //             console.log('Create:',input)
-    //             //API.graphql(graphqlOperation(createCaracteristicasProducto, { input }))
-    //         } else {
-    //             input = {
-    //                 id : actual.id,
-    //                 caracteristicaID: caracteristica.id,
-    //                 productoID: this.state.producto.id
-    //             }
-    //             console.log('Update:',input)
-    //             //API.graphql(graphqlOperation(updateCaracteristicasProducto, { input }))
-    //         }
-
-    //     })
-
-    //     this.props.handleRecargar()
-    //     this.handleModal()
-    // }
 
     render(){
         const { caracteristicasDisponibles, idSeleccionado } = this.state
