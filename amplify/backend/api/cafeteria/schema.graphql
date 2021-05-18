@@ -11,7 +11,7 @@ type Caracteristica @model (timestamps:{createdAt: "creado", updatedAt: "modific
 	id: ID!
 	titulo: String!
 	descripcion: String
-	opciones: String
+	opciones: [String]
 }
 
 type Producto @model (timestamps:{createdAt: "creado", updatedAt: "modificado"}){
