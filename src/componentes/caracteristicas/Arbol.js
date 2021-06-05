@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Rama from './Arbol'
 import Editar from './Editar'
 import Eliminar from './Eliminar'
 import Opcion from './Opcion'

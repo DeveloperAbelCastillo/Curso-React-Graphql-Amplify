@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { API, graphqlOperation } from 'aws-amplify'
-import { listCaracteristicas, listCaracteristicasProductos } from '../../graphql/queries'
-import { createCaracteristicasProducto } from '../../graphql/mutations'
+import { listCaracteristicas, listCaracteristicasProductos } from '../../../graphql/queries'
+import { createCaracteristicasProducto } from '../../../graphql/mutations'
 import { FaElementor } from 'react-icons/fa'
 
 class Caracteristicas extends Component{
@@ -58,12 +58,16 @@ class Caracteristicas extends Component{
     handleAgregar = async event => {
         event.preventDefault()
 
+        if(this.state.idSeleccionado === '')
+            return
+
         var input = {
             caracteristicaID: this.state.idSeleccionado,
             productoID: this.state.producto.id
         }        
 
         API.graphql(graphqlOperation(createCaracteristicasProducto, { input }))
+        this.setState({ idSeleccionado: '' })
         await this.filtrar(this.state.idSeleccionado)
     }
 
