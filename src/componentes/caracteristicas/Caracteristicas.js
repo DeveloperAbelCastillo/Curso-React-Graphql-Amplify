@@ -8,7 +8,12 @@ import Arbol from './Arbol'
 class Caracteristicas extends Component{
 
     state = {
-        caracteristicas: [],
+        caracteristicas: [{
+            id: "",
+	        titulo: "",
+	        descripcion: "",
+	        opciones: []
+        }],
         nextToken:'',
         next: false
     }

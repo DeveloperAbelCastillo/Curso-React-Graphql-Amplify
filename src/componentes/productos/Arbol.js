@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Rama from './Arbol'
 import Editar from './Editar'
 import Eliminar from './Eliminar'
+import EliminarCaracteristica from './EliminarCaracteristica'
 import Caracteristicas from './Caracteristicas'
 
 class Arbol extends Component{
@@ -23,7 +24,6 @@ class Arbol extends Component{
                         {categoria.titulo}
                     </div>
                     { productos.filter(producto => producto.categoriaID === categoria.id).map((producto) => {
-                        console.log(producto.caracteristicas.items)
                         return(
                             <div key={producto.id}>
                                 <div className='flex pl-4'>
@@ -34,7 +34,10 @@ class Arbol extends Component{
                                 </div>
                                 <div className='pl-8'>
                                     { producto.caracteristicas.items.map(item => (
-                                        <div className='px-6'>{item.caracteristica.titulo}</div>
+                                        <div class='px-6 flex'>
+                                            <EliminarCaracteristica id={item.id} handleRecargar={this.handleRecargar} />
+                                            <div className=''>{item.caracteristica.titulo}</div>
+                                        </div>
                                     ))}
                                 </div>
                             </div>

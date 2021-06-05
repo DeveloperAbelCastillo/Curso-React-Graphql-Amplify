@@ -1,28 +1,46 @@
 import React, { Component } from 'react'
 import { API, graphqlOperation } from 'aws-amplify'
 import { updateCaracteristica } from '../../graphql/mutations'
-import { FaEdit } from 'react-icons/fa'
+import { FaElementor } from 'react-icons/fa'
+import Caracteristicas from '../productos/Caracteristicas'
 
-class Editar extends Component {
+class Opcion extends Component {
     state = {
         verModal : false,
-        caracteristica : {
-            id : "",
-            titulo : "",
-            descripcion : ""
-        }
+        caracteristica : {},
+        opciones : [],
+        opcion : ""
     }
 
-    handleTitulo = async event => {
-        this.setState({ caracteristica: {...this.state.caracteristica, titulo: event.target.value }})
-    }
-
-    handleDescripcion = async event => {
-        this.setState({ caracteristica: {...this.state.caracteristica, descripcion: event.target.value }})
+    handleOpcion = async event => {
+        this.setState({ opcion: event.target.value })
     }
 
     handleCargar = (caracteristica) => {
+        const opciones = caracteristica.opciones
         this.setState({ caracteristica })
+        if(opciones !== null)
+            this.setState({ opciones })
+        this.handleModal()
+    }
+
+    handleAgregar = async event =>{
+        event.preventDefault()
+
+        const { opciones } = this.state
+        
+        opciones.push(this.state.opcion)
+
+        var input = {
+            id: this.state.caracteristica.id,
+            opciones: opciones
+        }
+
+        await API.graphql(graphqlOperation(updateCaracteristica, { input }))
+        this.setState({ caracteristica: {...this.state.caracteristica, id: ''}})
+        this.setState({ opcion: ''})
+
+        this.props.handleRecargar()
         this.handleModal()
     }
 
@@ -30,31 +48,14 @@ class Editar extends Component {
         this.setState({ verModal: !this.state.verModal})
     }
 
-    handleEditar = async event =>{
-        event.preventDefault()
-        var input = {
-            id: this.state.caracteristica.id,
-            titulo: this.state.caracteristica.titulo,
-            descripcion: this.state.caracteristica.descripcion
-        }
-
-        await API.graphql(graphqlOperation(updateCaracteristica, { input }))
-        this.setState({ caracteristica: {...this.state.caracteristica, id: ''}})
-        this.setState({ caracteristica: {...this.state.caracteristica, titulo: ''}})
-        this.setState({ caracteristica: {...this.state.caracteristica, descripcion: ''}})
-
-        this.props.handleRecargar()
-        this.handleModal()
-    }
-
     render(){
-        const { caracteristica } = this.state
+        const { caracteristica, opcion } = this.state
         const data = this.props.caracteristica
         return(
             <>
                 <div className='flex justify-center'>
                     <button className="text-blue-700 hover:text-green-500 focus:outline-none mr-1" onClick={() => this.handleCargar(data)}>
-                        <FaEdit />
+                        <FaElementor />
                     </button>
                 </div> 
 
@@ -66,7 +67,7 @@ class Editar extends Component {
                             <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                                 {/*header*/}
                                 <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t">
-                                    <h3 className="self-center text-3xl font-semibold">Seleccionar Características</h3>
+                                    <h3 className="self-center text-3xl font-semibold">Agregar Opción</h3>
                                     <button className="p-1 ml-auto bg-transparent border-0 text-blackopacity-5 float-right text-3xl leading-nonefont-semibold outline-none focus:outline-none" 
                                         onClick={this.handleModal}>
                                         <span className="bg-transparent text-black opacity-50 text-3xl block outline-none focus:outline-none">×</span>
@@ -76,18 +77,12 @@ class Editar extends Component {
                                 <div className="relative p-6 flex-auto">
                                     <div className="my-4 text-gray-600 text-lg leading-relaxed">
                                         <div className='overflow-auto max-h-70'>
-                                        <input className='bg-white focus:outline-none focus:shadow-outlineborder border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal my-1'
-                                            type="texto" 
-                                            placeholder="Título" 
-                                            name="titulo" 
-                                            value={caracteristica.titulo}
-                                            onChange={this.handleTitulo} />
-                                        <input className='bg-white focus:outline-none focus:shadow-outlineborder border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal my-1'
-                                            type="texto" 
-                                            placeholder="Descripción" 
-                                            name="descripcion" 
-                                            value={caracteristica.descripcion}
-                                            onChange={this.handleDescripcion} />
+                                            <input className='bg-white focus:outline-none focus:shadow-outlineborder border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal my-1'
+                                                type="texto" 
+                                                placeholder="Opcion" 
+                                                name="titulo" 
+                                                value={ opcion }
+                                                onChange={this.handleOpcion} />
                                         </div>
                                     </div>
                                 </div>
@@ -100,7 +95,7 @@ class Editar extends Component {
                                     <button className="bg-lime-200 text-blue-700 active:bg-lime-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg hover:bg-lime-400 outline-none focus:outline-none mr-1 mb-1" 
                                         type="button" 
                                         style={{ transition: "all .15s ease" }} 
-                                        onClick={this.handleEditar}>Guardar</button>
+                                        onClick={this.handleAgregar}>Guardar</button>
                                 </div>
                             </div>
                             </div>
@@ -113,4 +108,4 @@ class Editar extends Component {
     }
 }
 
-export default Editar
+export default Opcion

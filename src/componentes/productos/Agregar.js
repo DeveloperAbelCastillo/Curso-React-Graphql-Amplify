@@ -28,7 +28,7 @@ class Agregar extends Component {
     }
 
     handleCargar = async (data) => {
-        const categorias = data.categorias
+        const categorias = data.categorias.filter(item => item.subCategorias.items.length === 0)
         this.setState({ categorias })
         this.handleModal()
     }

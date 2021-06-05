@@ -67,61 +67,8 @@ class Caracteristicas extends Component{
         await this.filtrar(this.state.idSeleccionado)
     }
 
-    // asignarCaracteristicas = async caracteristicas => {
-    //     caracteristicas.forEach(item => {
-    //         console.log(item)
-    //     })
-    //     // caracteristicas.items.forEach()
-    // }
-
-    // handleCaracteristica = async event => {
-    //     const existe = this.state.caracteristicas.find(item => item.id === event.target.value)
-    //     if(existe === undefined){
-    //         const caracteristicaDisponible = this.state.caracteristicasDisponibles.find(item => item.id === event.target.value)
-    //         const caracteristica = {
-    //             caracteristicaID : caracteristicaDisponible.id,
-    //             productoID : this.state.producto.id
-    //         }
-    //         await this.setState({ caracteristicas: [...this.state.caracteristicas, caracteristica ] })
-    //     } else {
-    //         const caracteristicas = this.state.caracteristicas.filter(item => item.id !== event.target.value)            
-    //         await this.setState({ caracteristicas: caracteristicas })
-    //     }
-    // }
-
-    // handleGuardar = async event => {
-    //     event.preventDefault()
-    //     console.log(this.state.caracteristicas)
-    //     console.log(this.state.caracteristicasProductos)
-    //     this.state.caracteristicas.forEach(caracteristica => {
-    //         var input = {}
-    //         const actual = this.state.caracteristicasProductos.find(item => item.caracteristicaID === caracteristica.caracteristicaID)
-            
-    //         if(actual === undefined){
-    //             input = {
-    //                 caracteristicaID: caracteristica.caracteristicaID,
-    //                 productoID: caracteristica.productoID
-    //             }
-    //             console.log('Create:',input)
-    //             //API.graphql(graphqlOperation(createCaracteristicasProducto, { input }))
-    //         } else {
-    //             input = {
-    //                 id : actual.id,
-    //                 caracteristicaID: caracteristica.id,
-    //                 productoID: this.state.producto.id
-    //             }
-    //             console.log('Update:',input)
-    //             //API.graphql(graphqlOperation(updateCaracteristicasProducto, { input }))
-    //         }
-
-    //     })
-
-    //     this.props.handleRecargar()
-    //     this.handleModal()
-    // }
-
     render(){
-        const { caracteristicasDisponibles, idSeleccionado } = this.state
+        const { caracteristicasDisponibles, idSeleccionado, producto } = this.state
         const data = this.props.producto
         return(
             <>
@@ -150,6 +97,7 @@ class Caracteristicas extends Component{
                                     <div className="relative p-6 flex-auto">
                                         <div className="my-4 text-gray-600 text-lg leading-relaxed">
                                             <div className='block'>
+                                                <div className="self-center text-xl font-semibold">{ producto.titulo }</div>
                                                 <select className='bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal my-1'
                                                     value={idSeleccionado} 
                                                     onChange={this.handleIdSeleccionado}>
@@ -158,23 +106,6 @@ class Caracteristicas extends Component{
                                                         <option className='capitalize' key={item.id} value={item.id}>{item.titulo}</option>
                                                     )};
                                                 </select>
-                                                <button className="bg-lime-200 text-blue-700 active:bg-lime-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg hover:bg-lime-400 outline-none focus:outline-none mr-1 mb-1" 
-                                                    type="button" 
-                                                    style={{ transition: "all .15s ease" }} 
-                                                    onClick={this.handleAgregar}>Agregar</button>
-                                                {/* {caracteristicasDisponibles.map(item =>
-                                                    <div className='flex' key={item.id}>
-                                                        <input className='m-2 h-5 w-5 text-gray-600'
-                                                            type="checkbox" 
-                                                            defaultChecked={this.state.caracteristicas.id !== undefined ? true : false}
-                                                            name={item.titulo}
-                                                            value={item.id}
-                                                            onChange={this.handleCaracteristica} /> 
-                                                        <div className='self-center'>
-                                                            {item.titulo}
-                                                        </div>
-                                                    </div>
-                                                )} */}
                                             </div>
                                         </div>
                                     </div>
@@ -184,6 +115,10 @@ class Caracteristicas extends Component{
                                             type="button" 
                                             style={{ transition: "all .15s ease" }} 
                                             onClick={this.handleCerrar}>Cerrar</button>                                        
+                                        <button className="bg-lime-200 text-blue-700 active:bg-lime-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg hover:bg-lime-400 outline-none focus:outline-none mr-1 mb-1" 
+                                            type="button" 
+                                            style={{ transition: "all .15s ease" }} 
+                                            onClick={this.handleAgregar}>Agregar</button>
                                     </div>
                                 </div>
                             </div>
