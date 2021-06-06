@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { API, graphqlOperation } from 'aws-amplify'
 import { updateCaracteristica } from '../../graphql/mutations'
 import { FaElementor } from 'react-icons/fa'
-import Caracteristicas from '../productos/Caracteristicas'
 
 class Opcion extends Component {
     state = {
@@ -49,7 +48,7 @@ class Opcion extends Component {
     }
 
     render(){
-        const { caracteristica, opcion } = this.state
+        const { opcion } = this.state
         const data = this.props.caracteristica
         return(
             <>
