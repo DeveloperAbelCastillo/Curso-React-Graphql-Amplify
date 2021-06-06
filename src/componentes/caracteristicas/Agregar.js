@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { API, graphqlOperation } from 'aws-amplify'
 import { createCaracteristica } from '../../graphql/mutations'
-import { FaPlusSquare } from 'react-icons/fa'
+import { FaPlusSquare, FaPlus } from 'react-icons/fa'
 
 class Agregar extends Component {
     state = {
